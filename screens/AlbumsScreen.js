@@ -1,16 +1,40 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { Card, Button, Text, Icon } from 'react-native-elements';
+import CardList from '../components/CardList';
+
+import * as actions from '../actions';
 
 export default class LinksScreen extends React.Component {
   static navigationOptions = {
     title: 'Albums',
   };
 
+  constructor() {
+    super();
+
+    this.state = {
+      albums: null
+    }
+
+    actions.searchTracks('eminem').then(albums =>  this.setState = ({ albums }) );
+  }
+
+
+
   render() {
+    const { albums } = this.state;
+
     return (
+
       <ScrollView style={styles.container}>
-<Text>Albums Screen</Text>
+        <CardList data={albums}
+          imageKey={'cover_big'}
+          titleKey={'title'}
+          buttonText="See the details" //no curly brackets needed for strings
+        />
       </ScrollView>
+
     );
   }
 }
