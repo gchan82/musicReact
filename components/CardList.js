@@ -29,7 +29,7 @@ export class CardList extends React.Component {
     if (data && data.length > 0) {
       return this.renderData();
     } else {
-      return <View> <Text>Loading data ... </Text></View>
+      return <View><Text>Loading data ... </Text></View>
     }
 
   }
