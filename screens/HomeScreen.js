@@ -15,10 +15,9 @@ export default class HomeScreen extends React.Component {
     title: 'HomeScreen',
   };
 
-  // For testing, after render navigate to Album Screen
-componentDidMount() {
-  this.props.navigation.navigate('Albums');
-}
+  componentDidMount() {
+    this.props.navigation.navigate('Albums');
+  }
 
   render() {
     return (
