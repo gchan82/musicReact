@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View, Text } from 'react-native';
 
-import * as actions from 'actions';
+import * as actions from '../actions';
 
 export default class AlbumDetailScreen extends React.Component {
   static navigationOptions = {

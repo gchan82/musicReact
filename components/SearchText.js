@@ -14,6 +14,7 @@ export class SearchText extends React.Component {
 
   componentDidMount() {
     this.input.focus();
+
   }
 
   onChange(value) {

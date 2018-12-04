@@ -10,11 +10,15 @@ import {
   Button
 } from 'react-native';
 
-
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'HomeScreen',
   };
+
+  // For testing, after render navigate to Album Screen
+componentDidMount() {
+  this.props.navigation.navigate('Albums');
+}
 
   render() {
     return (
