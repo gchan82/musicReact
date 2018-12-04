@@ -13,13 +13,12 @@ import {
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'HomeScreen',
   };
 
   render() {
     return (
       <View style={styles.container}>
-      <Text> HomeScreen</Text>
         <Button title='Navigate to Albums' onPress={() => this.props.navigation.navigate('Albums')} />
       </View>
     );
