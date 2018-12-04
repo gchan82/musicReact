@@ -22,7 +22,6 @@ export class SearchText extends React.Component {
   }
 
   onSubmitSearch() {
-
     const { submitSearch } = this.props;
 
     submitSearch(this.state.value);
