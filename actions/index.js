@@ -20,5 +20,5 @@ export const searchTracks = (singerName) => {
 }
 
 export const getAlbumTracks = albumId => {
-  return axiosInstance.get(`albums/${albumId}`).then(response => response.data.tracks.data)
+  return axiosInstance.get(`album/${albumId}`).then(response => response.data.tracks.data)
 }
