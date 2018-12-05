@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, Linking } from 'react-native';
 import { Avatar, Text, Icon, Divider, List, ListItem } from 'react-native-elements';
 
 import * as actions from '../actions';
@@ -34,7 +34,7 @@ export default class AlbumDetailScreen extends React.Component {
           <ListItem key={index}
             title={track.title}
             leftIcon={{ name: 'play-arrow' }}
-            onPress={() => { }}
+            onPress={() => Linking.openURL(track.preview)}
             rightIcon={
               <Icon raised
                 name='star'
@@ -59,24 +59,24 @@ export default class AlbumDetailScreen extends React.Component {
         <ScrollView style={styles.container}>
           <View style={styles.header}>
             <View style={styles.avatar}>
-            <Avatar x-large rounded source={{ uri: album.cover_medium }}></Avatar>
+              <Avatar x-large rounded source={{ uri: album.cover_medium }}></Avatar>
             </View>
-            <View>
-              <Text h4>{album.title}</Text>
-              <Text h4>{artist}</Text>
+            <View style={styles.headerRight}>
+              <Text style={styles.mainText} h4>{album.title}</Text>
+              <Text style={styles.subText} h4>{artist}</Text>
 
               <Icon raised
                 name='play'
                 type='font-awesome'
                 color='#f50'
                 size={30}
-                onPress={() => { }}
+                onPress={() => Linking.openURL(this.state.tracks[0].preview)}
               />
             </View>
           </View>
           <Divider style={{ backgroundColor: 'black' }} />
-          <List>
-          {this.renderTracks()}
+          <List containerStyle={{ paddingTop: 0, marginTop: 0 }}>
+            {this.renderTracks()}
           </List>
         </ScrollView>
       );
@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 20
   },
-   avatar: {
+  avatar: {
     flex: 1,
-    marginRight: 20
+    marginRight: 10
   },
   headerRight: {
     flex: 1,
