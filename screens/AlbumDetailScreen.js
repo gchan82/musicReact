@@ -25,7 +25,31 @@ export default class AlbumDetailScreen extends React.Component {
       .catch(error => console.error(error))
   }
 
-  renderTracks() {
+  async saveTrackToFavorite(album, track) {
+    const favoriteAlbums = await actions.retrieveData('favoriteAlbums') || {};
+
+    debugger;
+    let albumData = favoriteAlbums[album.id];
+
+    if (!albumData) {
+      albumData = album;
+    }
+    if (!albumData['tracks']) {
+      albumData['tracks'] = {};
+    }
+
+    albumData['tracks'][track.id] = track;
+
+    favoriteAlbums[album.id] = albumData;
+
+    const success = await actions.storeData('favoriteAlbums', favoriteAlbums);
+
+    if(success) {
+      console.log(success);
+    }
+  }
+
+  renderTracks(album) {
     const { tracks } = this.state;
 
     if (tracks && tracks.length > 0) {
@@ -34,13 +58,13 @@ export default class AlbumDetailScreen extends React.Component {
           <ListItem key={index}
             title={track.title}
             leftIcon={{ name: 'play-arrow' }}
-            onPress={() => Linking.openURL(track.preview)}
+            leftIconOnPress={() => Linking.openURL(track.preview)}
             rightIcon={
               <Icon raised
                 name='star'
                 type='font-awesome'
                 color='#f50'
-                onPress={() => { }}
+                onPress={() => { this.saveTrackToFavorite(album, track)}}
               />
             }
           />
@@ -59,7 +83,7 @@ export default class AlbumDetailScreen extends React.Component {
         <ScrollView style={styles.container}>
           <View style={styles.header}>
             <View style={styles.avatar}>
-              <Avatar x-large rounded source={{ uri: album.cover_medium }}></Avatar>
+              <Avatar xlarge rounded source={{ uri: album.cover_medium }}></Avatar>
             </View>
             <View style={styles.headerRight}>
               <Text style={styles.mainText} h4>{album.title}</Text>
@@ -76,7 +100,7 @@ export default class AlbumDetailScreen extends React.Component {
           </View>
           <Divider style={{ backgroundColor: 'black' }} />
           <List containerStyle={{ paddingTop: 0, marginTop: 0 }}>
-            {this.renderTracks()}
+            {this.renderTracks(album)}
           </List>
         </ScrollView>
       );
