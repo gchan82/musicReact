@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Linking } from 'react-native';
+import { ScrollView, StyleSheet, View, Linking, Alert } from 'react-native';
 import { Avatar, Text, Icon, Divider, List, ListItem } from 'react-native-elements';
 
 import * as actions from '../actions';
@@ -28,7 +28,6 @@ export default class AlbumDetailScreen extends React.Component {
   async saveTrackToFavorite(album, track) {
     const favoriteAlbums = await actions.retrieveData('favoriteAlbums') || {};
 
-    debugger;
     let albumData = favoriteAlbums[album.id];
 
     if (!albumData) {
@@ -44,8 +43,15 @@ export default class AlbumDetailScreen extends React.Component {
 
     const success = await actions.storeData('favoriteAlbums', favoriteAlbums);
 
-    if(success) {
-      console.log(success);
+    if (success) {
+      Alert.alert(
+        'Track Added!',
+        `Track ${track.title} from ${track.artist.name} was added to favorites.`,
+        [
+          { text: 'Continue', onPress: () => console.log('Continue Pressed') },
+        ],
+        { cancelable: false }
+      )
     }
   }
 
@@ -64,7 +70,7 @@ export default class AlbumDetailScreen extends React.Component {
                 name='star'
                 type='font-awesome'
                 color='#f50'
-                onPress={() => { this.saveTrackToFavorite(album, track)}}
+                onPress={() => { this.saveTrackToFavorite(album, track) }}
               />
             }
           />
